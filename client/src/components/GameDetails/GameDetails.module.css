@@ -1,0 +1,83 @@
+.title_container_detail {
+    justify-content: center;
+    text-align: center;
+    margin-top: 6rem;
+
+}
+
+.title_detail {
+    color: white;
+    justify-content: center;
+    text-align: center;
+    font-size: 25px;
+    text-shadow: none;
+    margin-left: 1rem;
+    text-decoration: underline goldenrod;
+    
+}
+
+.button_container_detail {
+    margin-top: 3rem;
+    margin-left: -1rem;
+    justify-content: center; 
+    text-align: center;
+    
+}
+.button_detail {
+    text-decoration: none;
+    color:goldenrod;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: lighter;
+    font-size: 15px;
+    outline: none;
+    border: none;
+}
+
+
+.image_detail {
+    justify-content: center;
+    margin-left: 2rem;
+    width: 400px;
+    height:300px;
+}
+
+.released_detail {
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    color: rgb(7, 202, 7);
+}
+
+.platforms_detail {
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    color: rgb(7, 202, 7);
+}    
+    
+
+.genres_detail {
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    color: rgb(7, 202, 7);
+}
+
+.rating_detail {
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    color: rgb(7, 202, 7);
+}
+
+.description_detail {
+    justify-content: center;
+    text-align: center;
+    margin-left: 2rem;
+    color: rgb(7, 202, 7);
+    padding-left: 19%;
+    padding-right: 19%;
+}

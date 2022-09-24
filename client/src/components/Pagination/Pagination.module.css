@@ -1,0 +1,15 @@
+.container_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container_page ul{
+    user-select: none;
+    cursor: pointer;
+}
+
+.container_page ul li{
+    list-style: none;
+    display: inline;
+    margin: 0px 3px;
+}
