@@ -1,10 +1,10 @@
-/* .start_container{
+.start_container{
     height: 100vh;
-    background-image: url('../../images/background_jinx.jpeg');
+    background-image: url(../../images/background-sonic.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
-} */
+    background-position: center center;
+}
 .button_container{
     display: flex;
     align-items: center;
@@ -12,11 +12,19 @@
     position: relative;
     margin: auto;
     top: 50vh;
+
 }
 .button_container a{
   text-decoration: none;
 }
-
+.image_container{
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+}
+.image_container img{
+  border-radius: 20px;
+}
 /* CSS */
 .button_40 {
   align-items: center;

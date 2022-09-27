@@ -8,15 +8,6 @@ const { getAllGames, getQueryGame } = require("./funcs");
 const router = Router();
 
 router.get("/", async (req, res) => {
-  // try {
-  //   if (req.query.name) {
-  //     res.send(await getQueryGame(req.query.name));
-  //   } else {
-  //     return res.send(await getAllGames());
-  //   }
-  // } catch (e) {
-  //   return res.status(404).send({ msg: `error ${e}` });
-  // }
   let queryName = req.query.name;
   let gamesDb = await Videogame.findAll({
     include: Genre,
@@ -68,12 +59,12 @@ router.get("/", async (req, res) => {
       while (pages < 5) {
         pages++;
         const gamesToFront = response.data.results.map((e) => {
-          let platformsArr = [];
-          if (e.platforms) {
-            for (let i = 0; i < platformsArr.length; i++) {
-              platformsArr.push(e.platforms[i].platform.name);
-            }
-          }
+          // let platformsArr = [];
+          // if (e.platforms) {
+          //   for (let i = 0; i < platformsArr.length; i++) {
+          //     platformsArr.push(e.platforms[i].platform.name);
+          //   }
+          // }
           return {
             id: e.id,
             name: e.name,
@@ -81,7 +72,7 @@ router.get("/", async (req, res) => {
             rating: e.rating,
             released: e.released,
             genres: e.genres.map((e) => e.name),
-            platforms: platformsArr.map((e) => e),
+            // platforms: platformsArr.map((e) => e),
           };
         });
         results = [...results, ...gamesToFront];

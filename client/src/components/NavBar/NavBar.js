@@ -20,6 +20,7 @@ const NavBar = () => {
 
   return (
     <div className={c.container_navBar}>
+      
       <input
         className={c.input_text}
         type="text"

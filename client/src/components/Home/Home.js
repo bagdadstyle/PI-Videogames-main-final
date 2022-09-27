@@ -54,18 +54,23 @@ const Home = () => {
     setPage(1);
     setOrder(`order ${e.target.value}`);
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <NavBar />
-
       <div className={c.filters_container}>
-        <select onChange={(e) => handleOrder(e)}>
+        <select defaultValue={"Order"} onChange={(e) => handleOrder(e)}>
+          <option id={"Order"} value="Order" selected disabled hidden>
+            Order
+          </option>
           <option value="rating">Rating</option>
           <option value="asc">Ascendente</option>
           <option value="desc">Descendente</option>
         </select>
-        <select onChange={(e) => handleFilterGenres(e)}>
-          <option value="All" key="unique1">
+        <select defaultValue={"All"} onChange={(e) => handleFilterGenres(e)}>
+          <option id={"All"} value="All" key="unique1">
             All
           </option>
           {genres.map((e, i) => {
@@ -76,8 +81,10 @@ const Home = () => {
             );
           })}
         </select>
-        <select onChange={(e) => handleFilterCreate(e)}>
-          <option value="All">All</option>
+        <select defaultValue={"All"} onChange={(e) => handleFilterCreate(e)}>
+          <option id={"All"} value="All">
+            All
+          </option>
           <option value="DB">DB</option>
           <option value="API">API</option>
         </select>
@@ -90,39 +97,21 @@ const Home = () => {
       />
 
       <div className={c.games_container}>
-        {loading ? (
-          <Loading />
-        ) : (
-          currentGames.map((e, i) => {
-            return (
-              <Card
-                key={`${e.id}_${i}`}
-                id={e.id}
-                name={e.name}
-                backgroundImage={e.backgroundImage}
-                genres={e.genres}
-                rating={e.rating}
-              />
-            );
-          })
-        )}
+        {currentGames.map((e, i) => {
+          return (
+            <Card
+              key={`${e.id}_${i}`}
+              id={e.id}
+              name={e.name}
+              backgroundImage={e.backgroundImage}
+              genres={e.genres}
+              rating={e.rating}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export default Home;
-
-// {currentGames?.map((e, i) => {
-//   return (
-//     <li key={`${e.id}_${i}`}>
-//       <Link to={"/videogame/" + e.id}>
-//         <Card
-//           name={e.name}
-//           backgroundImage={e.backgroundImage}
-//           genres={e.genres}
-//         />
-//       </Link>
-//     </li>
-//   );
-// })}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenres, getPlatforms, postVideogame } from "../../actions";
 import { useHistory, Link } from "react-router-dom";
+import c from "./PostGame.module.css";
 
 const PostGame = () => {
   const genres = useSelector((state) => state.genres);
@@ -72,14 +73,18 @@ const PostGame = () => {
   };
 
   return (
-    <div>
-      <Link to="/home">
-        <span>Volver</span>
-      </Link>
-      <h1>Agregar Juego</h1>
+    <div className={c.form_container}>
+      <div className={c.back_container}>
+        <Link to="/home">
+          <span>Volver</span>
+        </Link>
+      </div>
+      <div className={c.title}>
+        <h1>Agregar Juego</h1>
+      </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <label>Nombre</label>
+          <p>Nombre</p>
           <input
             type="text"
             value={input.name}
@@ -89,16 +94,7 @@ const PostGame = () => {
           />
         </div>
         <div>
-          <label>Descripcion</label>
-          <input
-            type="text"
-            value={input.description}
-            name="description"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Imagen</label>
+          <p>Imagen</p>
           <input
             type="text"
             value={input.backgroundImage}
@@ -108,7 +104,7 @@ const PostGame = () => {
           />
         </div>
         <div>
-          <label>Fecha de lanzamiento</label>
+          <p>Fecha de lanzamiento</p>
           <input
             type="date"
             value={input.releaseDate}
@@ -117,7 +113,7 @@ const PostGame = () => {
           />
         </div>
         <div>
-          <label>Rating</label>
+          <p>Rating</p>
           <input
             type="number"
             value={input.rating}
@@ -127,9 +123,9 @@ const PostGame = () => {
           />
         </div>
         <div>
-          <label>Generos</label>
-          <select onChange={(e) => handleGenres(e)}>
-            <option value="All" key="unique1">
+          <p>Generos</p>
+          <select defaultValue={"All"} onChange={(e) => handleGenres(e)}>
+            <option id={"All"} value="All" key="unique1">
               All
             </option>
             {genres.map((e) => {
@@ -151,8 +147,9 @@ const PostGame = () => {
           </ul>
         </div>
         <div>
-          <select onChange={(e) => handlePlatforms(e)}>
-            <option value="All" key="unique2">
+          <p>Plataformas</p>
+          <select defaultValue={"All"} onChange={(e) => handlePlatforms(e)}>
+            <option id={"All"} value="All" key="unique2">
               All
             </option>
             {platforms.map((e) => {
@@ -172,8 +169,19 @@ const PostGame = () => {
               );
             })}
           </ul>
+          <div>
+            <p>Descripcion</p>
+            <input
+              type="text"
+              value={input.description}
+              name="description"
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <button type="submit">Crear</button>
+        <div className={c.button_submit}>
+        <input value="Crear" type="submit" />
+        </div>
       </form>
     </div>
   );

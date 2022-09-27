@@ -15,45 +15,48 @@ const GameDetails = () => {
   }, []);
 
   const game = useSelector((state) => state.details);
+  const loading = useSelector((state) => state.loading);
 
   return (
-    <div>
-      {game ? (
+    <div className={c.detail_container}>
+      {!loading ? (
         <div className={c.button_container_detail}>
           <Link to="/home">
             <button className={c.button_detail}>Volver</button>
           </Link>
-
-          <div className={c.title_container_detail}>
-            <h1 className={c.title_detail}>{game.name}</h1>
+          <div className={c.header_container}>
+            <h1>{game.name}</h1>
             <img
-              className={c.image_detail}
-              src={game.background_image}
+              src={
+                game.background_image
+                  ? game.background_image
+                  : game.backgroundImage
+              }
               alt="backgroundImage"
-              width="500px"
-              height="500px"
             />
-
-            <p className={c.genres_detail}>
-              Generos:
-              {game.genres ? game.genres.map((e) => e).join(", ") : null}
-            </p>
-
-            <p className={c.platforms_detail}>
-              Plataformas:
-              {console.log(game)}
-              {game.platforms ? game.platforms.map((e) => e).join(", ") : null}
-            </p>
-
-            <p className={c.released_detail}>
-              Fecha de lanzamiento: {game.releaseDate}
-            </p>
-            <p className={c.rating_detail}>Rating: {game.rating}</p>
-            <p className={c.description_detail}>Descripcion: </p>
-            <br />
-            {game.description}
-            {console.log(game.platforms)}
           </div>
+          <div className={c.genANDplat_detail}>
+            <div className={c.genre_container}>
+              <label>Generos:</label>
+              <p>{game.genres ? game.genres.map((e) => e).join(", ") : null}</p>
+              <p>Fecha de lanzamiento: {game.releaseDate}</p>
+            </div>
+            <div className={c.plat_container}>
+              <span>Plataformas:</span>
+              <p>
+                {/* {typeof game.platforms === "string"
+                  ? game.platforms.split(",").join(", ")
+                  : game.platforms.map((e) => e).join(", ")} */}
+                {Array.isArray(game.platforms)
+                  ? game.platforms.map((e) => e).join(", ")
+                  : game.platforms}
+              </p>
+              <p className={c.rating}>Rating: {game.rating}</p>
+            </div>
+          </div>
+          <p>Descripcion: </p>
+          <br />
+          {game.description}
         </div>
       ) : (
         <Loading />

@@ -4,12 +4,22 @@
     align-items: center;
 }
 .container_page ul{
-    user-select: none;
-    cursor: pointer;
+    backdrop-filter: blur(6px);
+    border-radius: 5px;
 }
 
 .container_page ul li{
+    font-size: 20px;
+    user-select: none;
+    cursor: pointer;
     list-style: none;
     display: inline;
-    margin: 0px 3px;
+    margin: 0px 10px;
+    padding: 5px 10px;
+    background-color: rgb(31, 0, 134);
+    border-radius: 5px;
+    outline: 1px solid #c3a2ff;
+}
+.container_page ul li:hover{
+    outline: 1px solid rgb(157, 96, 200);
 }

@@ -46,18 +46,20 @@ module.exports = {
   // },
   getGameParams: async (id) => {
     if (id.includes("-")) {
-      const gamesDb = await Videogame.findOne({
-        where: { id: id },
+      let gamesDb = await Videogame.findOne({
+        where: {
+          id: id,
+        },
         include: Genre,
       });
       gamesDb = JSON.stringify(gamesDb);
       gamesDb = JSON.parse(gamesDb);
 
       gamesDb.genres = gamesDb.genres.map((e) => e.name);
-      if (gamesDb.length > 0) {
-        console.log(gamesDb);
-        return gamesDb;
-      }
+      // if (gamesDb.length) {
+      console.log(gamesDb);
+      return gamesDb;
+      // }
     } else {
       try {
         let gameParams = await axios.get(
@@ -65,7 +67,7 @@ module.exports = {
         );
         let {
           name,
-          description,
+          description_raw: description,
           platforms,
           rating,
           background_image,
@@ -190,17 +192,6 @@ module.exports = {
     });
     await gameDb.addGenre(gameGenre);
   },
-  // isValidBody: async (body) => {
-  //   if (!body) return false;
-  //   const { name, description, releaseDate, rating, platforms } = body;
-  //   if (
-  //     typeof name === "string" &&
-  //     name.length > 0 &&
-  //     typeof description === "string" &&
-  //     description.length > 0
-  //   )
-  //     return true;
-  // },
   getPlatforms: async () => {
     const platformsDb = await Platform.findAll();
     if (platformsDb.length > 0) return platformsDb;
