@@ -12,6 +12,7 @@ const GameDetails = () => {
 
   useEffect(() => {
     dispatch(getDetails(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const game = useSelector((state) => state.details);
@@ -44,9 +45,6 @@ const GameDetails = () => {
             <div className={c.plat_container}>
               <span>Plataformas:</span>
               <p>
-                {/* {typeof game.platforms === "string"
-                  ? game.platforms.split(",").join(", ")
-                  : game.platforms.map((e) => e).join(", ")} */}
                 {Array.isArray(game.platforms)
                   ? game.platforms.map((e) => e).join(", ")
                   : game.platforms}

@@ -85,7 +85,8 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogames: sorted,
         };
-      } else {
+      } 
+      else {
         let sorted =
           action.payload === "asc"
             ? state.videogames.sort((a, b) => {

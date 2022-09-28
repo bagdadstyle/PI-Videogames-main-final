@@ -9,7 +9,6 @@ import {
   getVideogames,
   orderByName,
   resetState,
-  setLoading,
 } from "../../actions";
 import NavBar from "../NavBar/NavBar";
 import Card from "../Card/Card";
@@ -38,6 +37,7 @@ const Home = () => {
   }, [videogames]);
   useEffect(() => {
     dispatch(getVideogames());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleClick = async (e) => {
@@ -61,30 +61,29 @@ const Home = () => {
     <div>
       <NavBar />
       <div className={c.filters_container}>
-        <select defaultValue={"Order"} onChange={(e) => handleOrder(e)}>
-          <option id={"Order"} value="Order" selected disabled hidden>
-            Order
-          </option>
-          <option value="rating">Rating</option>
-          <option value="asc">Ascendente</option>
-          <option value="desc">Descendente</option>
+        <select onChange={(e) => handleOrder(e)}>
+          <optgroup label="Ordenar">
+            <option value="rating">Rating</option>
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </optgroup>
         </select>
-        <select defaultValue={"All"} onChange={(e) => handleFilterGenres(e)}>
-          <option id={"All"} value="All" key="unique1">
-            All
-          </option>
-          {genres.map((e, i) => {
-            return (
-              <option value={e.name} key={`${e.name}_${e.id}`}>
-                {e.name}
-              </option>
-            );
-          })}
+        <select onChange={(e) => handleFilterGenres(e)}>
+          <optgroup label="Generos">
+            <option value="All" key="unique1">
+              All
+            </option>
+            {genres.map((e, i) => {
+              return (
+                <option value={e.name} key={`${e.name}_${e.id}`}>
+                  {e.name}
+                </option>
+              );
+            })}
+          </optgroup>
         </select>
-        <select defaultValue={"All"} onChange={(e) => handleFilterCreate(e)}>
-          <option id={"All"} value="All">
-            All
-          </option>
+        <select onChange={(e) => handleFilterCreate(e)}>
+          <option value="All">All</option>
           <option value="DB">DB</option>
           <option value="API">API</option>
         </select>

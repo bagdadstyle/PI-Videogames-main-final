@@ -10,6 +10,15 @@ const PostGame = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [errors, setErrors] = useState({
+    name: "",
+    description: "",
+    backgroundImage: "",
+    releaseDate: "",
+    rating: "",
+    genres: [],
+    platforms: [],
+  });
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -25,12 +34,39 @@ const PostGame = () => {
   useEffect(() => {
     dispatch(getPlatforms());
   }, [dispatch]);
+  function inputValidate(input) {
+    let errors = {};
+    if (!input.name) {
+      errors.name = "Inserte un nombre";
+    }
+    if (!input.backgroundImage) {
+      errors.backgroundImage = "Inserte una imagen";
+    }
+    if (
+      Number(input.rating) > 5 ||
+      Number(input.rating) < 1 ||
+      isNaN(Number(input.rating))
+    ) {
+      errors.rating = "El rating es invalido";
+    }
+    if (!input.description) {
+      errors.description = "Inserte una descripcion";
+    }
+
+    return errors;
+  }
 
   const handleChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
+    setErrors(
+      inputValidate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
   const handlePlatforms = (e) => {
     setInput({
@@ -92,6 +128,7 @@ const PostGame = () => {
             onChange={handleChange}
             required
           />
+          {errors.name && <p className={c.danger_text}>{errors.name}</p>}
         </div>
         <div>
           <p>Imagen</p>
@@ -102,6 +139,9 @@ const PostGame = () => {
             onChange={handleChange}
             required
           />
+          {errors.backgroundImage && (
+            <p className={c.danger_text}>{errors.backgroundImage}</p>
+          )}
         </div>
         <div>
           <p>Fecha de lanzamiento</p>
@@ -119,13 +159,13 @@ const PostGame = () => {
             value={input.rating}
             name="rating"
             onChange={handleChange}
-            required
           />
+          {errors.rating && <p className={c.danger_text}>{errors.rating}</p>}
         </div>
         <div>
           <p>Generos</p>
-          <select defaultValue={"All"} onChange={(e) => handleGenres(e)}>
-            <option id={"All"} value="All" key="unique1">
+          <select onChange={(e) => handleGenres(e)}>
+            <option value="All" key="unique1">
               All
             </option>
             {genres.map((e) => {
@@ -148,8 +188,8 @@ const PostGame = () => {
         </div>
         <div>
           <p>Plataformas</p>
-          <select defaultValue={"All"} onChange={(e) => handlePlatforms(e)}>
-            <option id={"All"} value="All" key="unique2">
+          <select onChange={(e) => handlePlatforms(e)}>
+            <option value="All" key="unique2">
               All
             </option>
             {platforms.map((e) => {
@@ -176,11 +216,15 @@ const PostGame = () => {
               value={input.description}
               name="description"
               onChange={handleChange}
+              required
             />
+            {errors.description && (
+              <p className={c.danger_text}>{errors.description}</p>
+            )}
           </div>
         </div>
         <div className={c.button_submit}>
-        <input value="Crear" type="submit" />
+          <input value="Crear" type="submit" />
         </div>
       </form>
     </div>

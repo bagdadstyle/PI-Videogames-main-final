@@ -8,18 +8,10 @@ import GameDetails from "./components/GameDetails/GameDetails";
 function App() {
   return (
     <div className="App">
-      <Route exact path="/">
-        <StartPage />
-      </Route>
-      <Route exact path="/home">
-        <Home />
-      </Route>
-      <Route exact path="/videogame">
-        <PostGame />
-      </Route>
-      <Route exact path="/videogame/:id">
-        <GameDetails />
-      </Route>
+      <Route exact path="/" component={StartPage} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/videogame" component={PostGame} />
+      <Route exact path="/videogame/:id" component={GameDetails} />
     </div>
   );
 }

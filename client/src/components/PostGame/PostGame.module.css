@@ -44,3 +44,16 @@
     width: 100%;
     padding: 5px;
 }
+.input_success{
+    border: 2px solid green;
+}
+.input_danger{
+    border: 2px solid red;
+}
+
+.input_ok{
+    display: none;
+}
+.danger_text{
+    color: red
+}

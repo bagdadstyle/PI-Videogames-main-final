@@ -11,7 +11,6 @@ const NavBar = () => {
 
   const handleInput = (e) => {
     setName(e.target.value);
-    console.log(name);
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +19,6 @@ const NavBar = () => {
 
   return (
     <div className={c.container_navBar}>
-      
       <input
         className={c.input_text}
         type="text"

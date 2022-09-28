@@ -6,12 +6,6 @@
     margin: 15px 0px;
     min-width: 50%;
 }
-/* .games_container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-} */
 .games_container a{
     margin: 10px;
 }
