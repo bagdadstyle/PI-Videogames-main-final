@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   createdFilter,
   genresFilter,
   getGenres,
   getVideogames,
   orderByName,
-  resetState,
 } from "../../actions";
 import NavBar from "../NavBar/NavBar";
 import Card from "../Card/Card";
@@ -45,9 +43,11 @@ const Home = () => {
   };
   const handleFilterGenres = (e) => {
     dispatch(genresFilter(e.target.value));
+    setPage(1);
   };
   const handleFilterCreate = (e) => {
     dispatch(createdFilter(e.target.value));
+    setPage(1);
   };
   const handleOrder = (e) => {
     dispatch(orderByName(e.target.value));
@@ -55,11 +55,17 @@ const Home = () => {
     setOrder(`order ${e.target.value}`);
   };
   if (loading) {
-    return <Loading />;
+    return (
+      <div>
+        <NavBar />
+        <Loading />
+      </div>
+    );
   }
   return (
     <div>
       <NavBar />
+
       <div className={c.filters_container}>
         <select onChange={(e) => handleOrder(e)}>
           <optgroup label="Ordenar">

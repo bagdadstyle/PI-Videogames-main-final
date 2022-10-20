@@ -1,6 +1,5 @@
-
 const { Router } = require("express");
-const { getGenres } = require("./funcs");
+const { getGenres } = require("./../utils/utils");
 
 const router = Router();
 

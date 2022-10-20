@@ -86,7 +86,9 @@ export const orderByName = (payload) => {
 export const getVideogamesByName = (name) => {
   return async (dispatch) => {
     try {
+      dispatch(setLoading(true));
       const response = await axios.get(`/videogames?name=${name}`);
+      dispatch(setLoading(false));
       return dispatch({
         type: GET_BY_NAME,
         payload: response.data,

@@ -1,7 +1,5 @@
 require("dotenv").config();
 const { Router } = require("express");
-const { API_KEY } = process.env;
-const axios = require("axios");
 const router = Router();
 
 // Importar todos los routers;

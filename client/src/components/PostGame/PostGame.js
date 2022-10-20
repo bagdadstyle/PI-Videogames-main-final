@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGenres, getPlatforms, postVideogame } from "../../actions";
+import {
+  getGenres,
+  getPlatforms,
+  getVideogames,
+  postVideogame,
+} from "../../actions";
 import { useHistory, Link } from "react-router-dom";
 import c from "./PostGame.module.css";
 
@@ -52,7 +57,6 @@ const PostGame = () => {
     if (!input.description) {
       errors.description = "Inserte una descripcion";
     }
-
     return errors;
   }
 
@@ -82,18 +86,23 @@ const PostGame = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postVideogame(input));
-    alert("Juego creado");
-    setInput({
-      name: "",
-      description: "",
-      backgroundImage: "",
-      releaseDate: "",
-      rating: "",
-      genres: [],
-      platforms: [],
-    });
-    history.push("/home");
+    if (!Object.keys(errors).length) {
+      dispatch(postVideogame(input));
+      alert("Juego creado");
+      setInput({
+        name: "",
+        description: "",
+        backgroundImage: "",
+        releaseDate: "",
+        rating: "",
+        genres: [],
+        platforms: [],
+      });
+      dispatch(getVideogames());
+      history.push("/home");
+    } else {
+      alert("Juego no creado");
+    }
   };
   const handleDeletePlatforms = (e) => {
     setInput({
@@ -126,7 +135,6 @@ const PostGame = () => {
             value={input.name}
             name="name"
             onChange={handleChange}
-            required
           />
           {errors.name && <p className={c.danger_text}>{errors.name}</p>}
         </div>
@@ -137,7 +145,6 @@ const PostGame = () => {
             value={input.backgroundImage}
             name="backgroundImage"
             onChange={handleChange}
-            required
           />
           {errors.backgroundImage && (
             <p className={c.danger_text}>{errors.backgroundImage}</p>
@@ -216,7 +223,6 @@ const PostGame = () => {
               value={input.description}
               name="description"
               onChange={handleChange}
-              required
             />
             {errors.description && (
               <p className={c.danger_text}>{errors.description}</p>

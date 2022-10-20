@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getGameParams, gamePost } = require("./funcs");
+const { getGameParams, gamePost } = require("../utils/utils");
 const { Videogame, Genre } = require("../db");
 
 const router = Router();
@@ -23,31 +23,4 @@ router.post("/", async (req, res) => {
     res.status(404).json({ msg: `${e} /catch post` });
   }
 });
-
-router.put("/:id", async (req, res) => {
-  try {
-    let { id } = req.params;
-    let { name, description, releaseDate, rating } = req.body;
-    await Videogame.update(
-      { name, description, releaseDate, rating },
-      { where: { id: id } }
-    );
-    res.send("Actualizado");
-  } catch (e) {
-    res.status(404).json({ msg: `${e} /catch put` });
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  try {
-    let { id } = req.params;
-    await Videogame.destroy({
-      where: { id },
-    });
-    res.send("Eliminado");
-  } catch (e) {
-    res.status(400).send({ msg: `${e} /delete` });
-  }
-});
-
 module.exports = router;

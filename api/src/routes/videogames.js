@@ -3,7 +3,7 @@ const { Router } = require("express");
 const { API_KEY } = process.env;
 const axios = require("axios");
 const { Videogame, Genre } = require("../db");
-const { getAllGames, getQueryGame } = require("./funcs");
+// const { getAllGames, getQueryGame } = require("./../utils/utils");
 
 const router = Router();
 
@@ -44,6 +44,7 @@ router.get("/", async (req, res) => {
       const gamesDbFilter = gamesDb.filter((e) =>
         e.name.toLowerCase().includes(queryName.toLowerCase())
       );
+      console.log(gamesDbFilter, "Console");
       const results = [...gamesDbFilter, ...gamesToFront.splice(0, 15)];
       return res.json(results);
     } catch (e) {
@@ -51,33 +52,33 @@ router.get("/", async (req, res) => {
     }
   } else {
     try {
-      let pages = 0;
       let results = [...gamesDb];
-      let response = await axios.get(
-        `https://api.rawg.io/api/games?key=${API_KEY}`
+      let response1 = await axios.get(
+        `https://api.rawg.io/api/games?key=${API_KEY}&page=1&page_size=50`
       );
-      while (pages < 5) {
-        pages++;
-        const gamesToFront = response.data.results.map((e) => {
-          // let platformsArr = [];
-          // if (e.platforms) {
-          //   for (let i = 0; i < platformsArr.length; i++) {
-          //     platformsArr.push(e.platforms[i].platform.name);
-          //   }
-          // }
-          return {
-            id: e.id,
-            name: e.name,
-            backgroundImage: e.background_image,
-            rating: e.rating,
-            released: e.released,
-            genres: e.genres.map((e) => e.name),
-            // platforms: platformsArr.map((e) => e),
-          };
-        });
-        results = [...results, ...gamesToFront];
-        response = await axios.get(response.data.next);
-      }
+      let response2 = await axios.get(
+        `https://api.rawg.io/api/games?key=${API_KEY}&page=2&page_size=50`
+      );
+      let response3 = await axios.get(
+        `https://api.rawg.io/api/games?key=${API_KEY}&page=3&page_size=50`
+      );
+      let responses = [
+        ...response1.data.results,
+        ...response2.data.results,
+        ...response3.data.results,
+      ];
+      responses = responses.map((e) => {
+        return {
+          id: e.id,
+          name: e.name,
+          backgroundImage: e.background_image,
+          rating: e.rating,
+          released: e.released,
+          genres: e.genres.map((e) => e.name),
+        };
+      });
+      results = [...results, ...responses];
+
       return res.json(results);
     } catch (e) {
       return res.status(404).json({ error: e });
