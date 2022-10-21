@@ -46,6 +46,8 @@ router.get("/", async (req, res) => {
       );
       console.log(gamesDbFilter, "Console");
       const results = [...gamesDbFilter, ...gamesToFront.splice(0, 15)];
+      if (results.length <= 0)
+        return res.status(400).send("No se encontraron juegos");
       return res.json(results);
     } catch (e) {
       console.log(e);

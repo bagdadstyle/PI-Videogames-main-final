@@ -94,7 +94,7 @@ export const getVideogamesByName = (name) => {
         payload: response.data,
       });
     } catch (e) {
-      console.log(`getVideogamesByName: ${name}`);
+      alert(e);
     }
   };
 };
