@@ -8,6 +8,7 @@ import GameDetails from "./components/GameDetails/GameDetails";
 function App() {
   return (
     <div className="App">
+      
       <Route exact path="/" component={StartPage} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/videogame" component={PostGame} />
